@@ -10,7 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Black Jack");
+        SceneLibrary.setPrimaryStage(primaryStage);
+        SceneLibrary.switchGameScene();
         primaryStage.show();
     }
 

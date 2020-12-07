@@ -1,41 +1,56 @@
 package sample;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class GameScene extends Pane {
+import java.util.ArrayList;
+
+public class GameScene extends VBox {
+
+    private ArrayList<Player> players = new ArrayList<Player>();
+
+    private HBox rowOne = new HBox();
+    private HBox rowTwo = new HBox();
+
+    private Dealer dealer = new Dealer();
+    private Player computerOne = new Player();
+    private Player computerTwo = new Player();
+    private Player computerThree = new Player();
+    private Player computerFour = new Player();
+    private Player player = new Player();
+
     public GameScene() {
+
         Deck deck = new Deck();
 
-        VBox computerOneBox = new VBox();
-        computerOneBox.getChildren().add(deck.getRandomCard().getCardImageView());
-        computerOneBox.relocate(0,0);
+        addPlayers();
 
-        VBox computerTwoBox = new VBox();
-        computerTwoBox.getChildren().add(deck.getRandomCard().getCardImageView());
-        computerTwoBox.relocate(800, 0);
+        for (Player player : players) {
+            player.addCard(deck.getRandomCard());
+            player.addCard(deck.getRandomCard());
+            player.addCard(deck.getRandomCard());
+        }
 
-        HBox dealerBox = new HBox();
-        dealerBox.getChildren().add(deck.getRandomCard().getCardImageView());
-        dealerBox.relocate(500, 0);
+        rowOne.getChildren().addAll(computerOne, computerTwo);
+        rowTwo.getChildren().addAll(computerThree, computerFour);
 
-        HBox playerBox = new HBox();
-        playerBox.getChildren().add(deck.getRandomCard().getCardImageView());
-        playerBox.relocate(0, 600);
+        getChildren().addAll(dealer, rowOne, rowTwo, player);
 
-        HBox computerThreeBox = new HBox();
-        computerThreeBox.getChildren().add(deck.getRandomCard().getCardImageView());
-        computerThreeBox.relocate(500, 600);
-
-        getChildren().add(computerOneBox);
-        getChildren().add(dealerBox);
-        getChildren().add(playerBox);
-        getChildren().add(computerThreeBox);
-        getChildren().add(computerTwoBox);
+        dealer.alignPlayer(Pos.CENTER_RIGHT);
+        player.alignPlayer(Pos.CENTER_RIGHT);
 
         setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
+    }
 
+    public void addPlayers() {
+        players.add(dealer);
+        players.add(computerOne);
+        players.add(computerTwo);
+        players.add(computerThree);
+        players.add(computerFour);
+        players.add(player);
     }
 }

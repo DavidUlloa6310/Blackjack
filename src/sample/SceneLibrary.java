@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 
 public abstract class SceneLibrary {
     private static Stage primaryStage;
-    private static Scene gameScene = new Scene(new GameScene(), 1500, 1000);
+    private static Scene gameScene = new Scene(new GameScene(), 1500, 1250);
 
     public static void setPrimaryStage(Stage primaryStage) {
         SceneLibrary.primaryStage = primaryStage;

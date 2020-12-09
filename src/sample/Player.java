@@ -21,8 +21,10 @@ public class Player extends VBox {
     Random random = new Random();
 
     public Player() {
-        chipBox.setPrefSize(750,250);
-        cardHBox.setPrefSize(750,250);
+        firstRow.setAlignment(Pos.CENTER);
+
+        chipBox.setPrefHeight(250);
+        cardHBox.setPrefHeight(250);
         cardHBox.setAlignment(Pos.CENTER);
 
         generateChips();
@@ -55,7 +57,7 @@ public class Player extends VBox {
 
     public void paintChips() {
 
-        int x = 0;
+        int x = 100;
         int y = 50;
 
         for (Chip chip : this.chips) {
@@ -100,6 +102,10 @@ public class Player extends VBox {
 
     public ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public HBox getFirstRow() {
+        return firstRow;
     }
 
     public HBox getCardHBox() {

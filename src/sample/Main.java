@@ -14,6 +14,7 @@ public class Main extends Application {
         SceneLibrary.setPrimaryStage(primaryStage);
         SceneLibrary.switchGameScene();
         primaryStage.show();
+        primaryStage.setResizable(false);
     }
 
     public static void main(String[] args) {

@@ -1,18 +1,20 @@
 package sample;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Random;
 
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck extends ImageView {
 
     private ArrayList<Card> deckCards;
     private Random random = new Random();
     private ImageView deckImageView = new ImageView("images/cards/deck_1.png");
 
     public Deck() {
+        setImage(new Image("images/cards/deck_1.png"));
         generateDeck();
     }
 

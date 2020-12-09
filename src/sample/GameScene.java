@@ -23,12 +23,16 @@ public class GameScene extends VBox {
 
     public GameScene() {
 
+        rowOne.setAlignment(Pos.CENTER);
+        rowOne.setSpacing(20);
+        rowTwo.setAlignment(Pos.CENTER);
+        rowTwo.setSpacing(20);
+
         Deck deck = new Deck();
 
         addPlayers();
 
         for (Player player : players) {
-            player.addCard(deck.getRandomCard());
             player.addCard(deck.getRandomCard());
             player.addCard(deck.getRandomCard());
         }

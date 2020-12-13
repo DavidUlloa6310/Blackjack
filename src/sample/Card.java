@@ -13,4 +13,12 @@ public class Card extends ImageView {
 
         isAce = value == 11;
     }
+
+    public int getValue() {
+        return value;
+    }
+
+    public boolean isAce() {
+        return isAce;
+    }
 }

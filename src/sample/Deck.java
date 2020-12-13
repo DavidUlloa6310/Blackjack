@@ -1,7 +1,9 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.util.Random;
 
@@ -13,9 +15,17 @@ public class Deck extends ImageView {
     private Random random = new Random();
     private ImageView deckImageView = new ImageView("images/cards/deck_1.png");
 
-    public Deck() {
+    public Deck(Player humanPlayer) {
         setImage(new Image("images/cards/deck_1.png"));
         generateDeck();
+
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (!humanPlayer.isHasLost())
+                    giveRandomCard(humanPlayer);
+            }
+        });
     }
 
     public void generateDeck() {
@@ -81,6 +91,11 @@ public class Deck extends ImageView {
 
     public Card getRandomCard() {
         return deckCards.remove(random.nextInt(deckCards.size()));
+    }
+
+    public void giveRandomCard(Player player) {
+        player.addCard(getRandomCard());
+        player.paintCards();
     }
 
 }

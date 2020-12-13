@@ -1,29 +1,37 @@
 package sample;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Player extends VBox {
+
+    boolean isHuman = false;
+
     private int totalChipValue;
+    private boolean hasPassed = false;
+    private boolean hasLost = false;
 
     private ArrayList<Chip> chips;
     private ArrayList<Card> cards;
 
+    private ChipBox chipBox = new ChipBox();
+
     private HBox firstRow = new HBox();
     private HBox cardHBox = new HBox();
-    private Pane chipBox = new Pane();
+
+    private Pane looseChips = new Pane();
 
     Random random = new Random();
 
     public Player() {
         firstRow.setAlignment(Pos.CENTER);
+        firstRow.setSpacing(10);
 
-        chipBox.setPrefHeight(250);
+        looseChips.setPrefHeight(250);
         cardHBox.setPrefHeight(250);
         cardHBox.setAlignment(Pos.CENTER);
 
@@ -33,7 +41,7 @@ public class Player extends VBox {
         cards = new ArrayList<Card>();
         totalChipValue = getTotalChipValue();
 
-        firstRow.getChildren().addAll(cardHBox, chipBox);
+        firstRow.getChildren().addAll(cardHBox, chipBox, looseChips);
         getChildren().add(firstRow);
     }
 
@@ -46,24 +54,24 @@ public class Player extends VBox {
         ArrayList<Chip> chips = new ArrayList<Chip>();
 
         for (int i = 0; i < 3; i++)
-            chips.add(new Chip(ChipType.FIFTY));
+            chips.add(new Chip(ChipType.FIFTY, this));
         for (int i = 0; i < 2; i++)
-            chips.add(new Chip(ChipType.ONEHUNDRED));
+            chips.add(new Chip(ChipType.ONEHUNDRED, this));
 
-        chips.add(new Chip(ChipType.TWOHUNDREDFIFTY));
+        chips.add(new Chip(ChipType.TWOHUNDREDFIFTY, this));
 
         this.chips = chips;
     }
 
     public void paintChips() {
 
-        int x = 100;
+        int x = 0;
         int y = 50;
 
         for (Chip chip : this.chips) {
 
-            chip.getChipImageView().relocate(x,y);
-            chipBox.getChildren().add(chip.getChipImageView());
+            chip.relocate(x,y);
+            looseChips.getChildren().add(chip);
 
             x += 10;
         }
@@ -71,7 +79,9 @@ public class Player extends VBox {
 
     public void paintCards() {
         for (Card card : cards) {
-            cardHBox.getChildren().add(card);
+            if (!cardHBox.getChildren().contains(card)) {
+                cardHBox.getChildren().add(card);
+            }
         }
     }
 
@@ -83,9 +93,36 @@ public class Player extends VBox {
         return amount;
     }
 
-    public void addCard(Card card) {
+    public int getCardValue() {
+        int amount = 0;
+        ArrayList<Card> aceCards = new ArrayList<Card>();
+        for (Card card : cards) {
+            amount += card.getValue();
+            if (card.isAce())
+                aceCards.add(card);
+        }
+
+        if (amount > 21 && !aceCards.isEmpty()) {
+            for (Card ace : aceCards) {
+                amount -= 10;
+                if (amount <= 21)
+                    return amount;
+            }
+        }
+
+        return amount;
+
+    }
+
+    public boolean addCard(Card card) {
         cards.add(card);
-        cardHBox.getChildren().add(card);
+        if (getCardValue() > 21) {
+            JOptionPane.showMessageDialog(null, "A player has lost with the score " + getCardValue());
+            chipBox.makeEmpty();
+            this.hasLost = true;
+            return false;
+        }
+        return true;
     }
 
     public void addChip(Chip chip) {
@@ -112,7 +149,35 @@ public class Player extends VBox {
         return cardHBox;
     }
 
-    public Pane getChipBox() {
+    public Pane getLooseChips() {
+        return looseChips;
+    }
+
+    public ChipBox getChipBox() {
         return chipBox;
+    }
+
+    public boolean isHasPassed() {
+        return hasPassed;
+    }
+
+    public boolean isHasLost() {
+        return hasLost;
+    }
+
+    public void setHasPassed(boolean hasPassed) {
+        this.hasPassed = hasPassed;
+    }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
+    public void setIsHuman(boolean isHuman) {
+        this.isHuman = isHuman;
+    }
+
+    public boolean isHuman() {
+        return isHuman;
     }
 }

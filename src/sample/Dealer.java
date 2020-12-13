@@ -2,18 +2,18 @@ package sample;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Dealer extends Player {
 
-    Deck deck = new Deck();
     HBox deckHBox = new HBox();
+    Deck deck;
 
-    public Dealer() {
+    public Dealer(Deck deck) {
         super();
-        super.getFirstRow().getChildren().remove(super.getChipBox());
+        this.deck = deck;
+        super.getFirstRow().getChildren().remove(super.getLooseChips());
         super.getFirstRow().setSpacing(20);
 
         deckHBox.getChildren().add(deck);
@@ -22,6 +22,7 @@ public class Dealer extends Player {
         deckHBox.setPrefWidth(600);
 
         super.getFirstRow().getChildren().add(deckHBox);
+        super.getFirstRow().getChildren().remove(1);
 
         Rectangle chipPile = new Rectangle(2000,200, Color.WHITE);
         getChildren().addAll(chipPile);

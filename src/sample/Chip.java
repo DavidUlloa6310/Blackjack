@@ -1,41 +1,60 @@
 package sample;
 
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-public class Chip {
+public class Chip extends ImageView {
     private int value;
     private ImageView chipImageView;
+    private Chip chip = this;
+    private Player player;
 
-    public Chip(ChipType chipType) {
+    public Chip(ChipType chipType, Player player) {
+
+        this.player = player;
+
         switch(chipType) {
             case FIFTY:
                 value = 50;
-                chipImageView = new ImageView("images/chips/chip_white_top.png");
+                setImage(new Image(("images/chips/chip_white_top.png")));
                 break;
             case ONEHUNDRED:
                 value = 100;
-                chipImageView = new ImageView("images/chips/chip_red_top.png");
+                setImage(new Image(("images/chips/chip_red_top.png")));
                 break;
             case TWOHUNDREDFIFTY:
                 value = 250;
-                chipImageView = new ImageView("images/chips/chip_blue_top.png");
+                setImage(new Image(("images/chips/chip_blue_top.png")));
                 break;
             case FIVEHUNDRED:
                 value = 500;
-                chipImageView = new ImageView("images/chips/chip_purple_top.png");
+                setImage(new Image(("images/chips/chip_purple_top.png")));
                 break;
             case THOUSAND:
                 value = 1000;
-                chipImageView = new ImageView("images/chips/chip_black_top.png");
+                setImage(new Image(("images/chips/chip_black_top.png")));
                 break;
         }
+
+        addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (player.isHuman()) {
+                    moveChip();
+                }
+            }
+        });
+
     }
 
     public int getValue() {
         return value;
     }
 
-    public ImageView getChipImageView() {
-        return chipImageView;
+    public void moveChip() {
+        player.removeChip(chip);
+        player.getChipBox().addChip(chip);
     }
 }

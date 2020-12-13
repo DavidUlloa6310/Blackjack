@@ -2,6 +2,8 @@ package sample;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -14,27 +16,32 @@ public class GameScene extends VBox {
     private HBox rowOne = new HBox();
     private HBox rowTwo = new HBox();
 
-    private Dealer dealer = new Dealer();
-    private Player computerOne = new Player();
-    private Player computerTwo = new Player();
-    private Player computerThree = new Player();
-    private Player computerFour = new Player();
     private Player player = new Player();
 
+    Deck deck = new Deck(player);
+    private Dealer dealer = new Dealer(deck);
+
+    private ComputerPlayer computerOne = new ComputerPlayer();
+    private ComputerPlayer computerTwo = new ComputerPlayer();
+    private ComputerPlayer computerThree = new ComputerPlayer();
+    private ComputerPlayer computerFour = new ComputerPlayer();
+
     public GameScene() {
+
+        player.setIsHuman(true);
 
         rowOne.setAlignment(Pos.CENTER);
         rowOne.setSpacing(20);
         rowTwo.setAlignment(Pos.CENTER);
         rowTwo.setSpacing(20);
 
-        Deck deck = new Deck();
-
         addPlayers();
 
         for (Player player : players) {
             player.addCard(deck.getRandomCard());
             player.addCard(deck.getRandomCard());
+//            player.addCard(deck.getRandomCard());
+            player.paintCards();
         }
 
         rowOne.getChildren().addAll(computerOne, computerTwo);
@@ -45,7 +52,23 @@ public class GameScene extends VBox {
         dealer.alignPlayer(Pos.CENTER_RIGHT);
         player.alignPlayer(Pos.CENTER_RIGHT);
 
-        setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+            if (key.getCode() == KeyCode.ENTER) {
+                player.setHasPassed(true);
+                startBotPlay();
+            }
+        });
+
+        if (player.isHasLost()) {
+            startBotPlay();
+        }
+
+        setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
+    }
+
+    public void startBotPlay() {
 
     }
 

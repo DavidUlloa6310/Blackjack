@@ -104,7 +104,7 @@ public class GameScene extends VBox {
                 player.setHasPassed(true);
                 startBotPlay();
                 startDealerPlay();
-                if (player.getCardValue() < dealer.getCardValue() && dealer.getCardValue() <= 21) {
+                if (player.getCardValue() <= dealer.getCardValue() && dealer.getCardValue() <= 21) {
                     JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount());
                 } else {
                     JOptionPane.showMessageDialog(null, "You have won with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have won $" + player.getChipBox().getTotalChipAmount());
@@ -125,6 +125,9 @@ public class GameScene extends VBox {
                     startBotPlay();
                     startDealerPlay();
                     checkBets();
+
+                    buttonRow.getChildren().clear();
+                    buttonRow.getChildren().add(reset);
                 }
             }
         });
@@ -137,6 +140,7 @@ public class GameScene extends VBox {
             dealer.reset();
             buttonRow.getChildren().remove(0);
             buttonRow.getChildren().add(pass);
+            deck.generateDeck();
         });
 
         setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));

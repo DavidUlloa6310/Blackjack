@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -194,12 +195,15 @@ public class GameScene extends VBox {
                 player.paintChips();
             } else {
                 player.getChipBox().makeEmpty();
+                if (player.getTotalChipValue() == 0) {
+                    player.generateChips();
+                    player.paintChips();
+                }
             }
         }
     }
 
     public void addPlayers() {
-        //players.add(dealer);
         players.add(computerOne);
         players.add(computerTwo);
         players.add(computerThree);

@@ -3,7 +3,6 @@ package sample;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -116,14 +115,12 @@ public class Player extends VBox {
 
     }
 
-    public boolean addCard(Card card) {
+    public void addCard(Card card) {
         cards.add(card);
         if (getCardValue() > 21) {
             chipBox.makeEmpty();
             this.hasLost = true;
-            return false;
         }
-        return true;
     }
 
     public void reset() {

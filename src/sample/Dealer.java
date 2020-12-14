@@ -24,7 +24,7 @@ public class Dealer extends Player {
         super.getFirstRow().getChildren().add(deckHBox);
         super.getFirstRow().getChildren().remove(1);
 
-        Rectangle chipPile = new Rectangle(2000,200, Color.WHITE);
+        Rectangle chipPile = new Rectangle(2000,100, Color.WHITE);
         getChildren().addAll(chipPile);
     }
 }

@@ -12,7 +12,7 @@ public abstract class SceneLibrary {
     }
 
     public static void switchGameScene() {
-        SceneLibrary.primaryStage.setScene(gameScene);
+        SceneLibrary.primaryStage.setScene(new Scene(new GameScene(), 1600, 1250));
     }
 
 

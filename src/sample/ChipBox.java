@@ -16,6 +16,8 @@ public class ChipBox extends StackPane {
     private int totalChipAmount = 0;
     private Text chipAmountText = new Text("");
 
+    public int getTotalChipAmount() { return totalChipAmount; }
+
     public ChipBox() {
 
         chipAmountText.setFont(Font.font("Bauhaus 93", 50));
@@ -43,4 +45,5 @@ public class ChipBox extends StackPane {
         totalChipAmount = 0;
         chipAmountText.setText("");
     }
+
 }

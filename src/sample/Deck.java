@@ -4,28 +4,27 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.Random;
 
 import java.util.ArrayList;
 
-public class Deck extends ImageView {
+public class Deck extends StackPane {
 
     private ArrayList<Card> deckCards;
     private Random random = new Random();
     private ImageView deckImageView = new ImageView("images/cards/deck_1.png");
 
     public Deck(Player humanPlayer) {
-        setImage(new Image("images/cards/deck_1.png"));
+        Text text = new Text("Deck");
+        text.setFont(Font.font("Bauhaus 93", 50));
+        text.setFill(Color.WHITE);
+        getChildren().addAll(deckImageView, text);
         generateDeck();
-
-        setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (!humanPlayer.isHasLost())
-                    giveRandomCard(humanPlayer);
-            }
-        });
     }
 
     public void generateDeck() {

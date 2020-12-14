@@ -117,7 +117,6 @@ public class Player extends VBox {
     public boolean addCard(Card card) {
         cards.add(card);
         if (getCardValue() > 21) {
-            JOptionPane.showMessageDialog(null, "A player has lost with the score " + getCardValue());
             chipBox.makeEmpty();
             this.hasLost = true;
             return false;
@@ -179,5 +178,9 @@ public class Player extends VBox {
 
     public boolean isHuman() {
         return isHuman;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 }

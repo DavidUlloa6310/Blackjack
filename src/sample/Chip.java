@@ -41,7 +41,7 @@ public class Chip extends ImageView {
         addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (player.isHuman()) {
+                if (player.isHuman() && !player.isHasLost()) {
                     moveChip();
                 }
             }

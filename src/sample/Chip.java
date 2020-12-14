@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 public class Chip extends ImageView {
     private int value;
+    private ChipType chipType;
     private ImageView chipImageView;
     private Chip chip = this;
     private Player player;
@@ -14,6 +15,7 @@ public class Chip extends ImageView {
     public Chip(ChipType chipType, Player player) {
 
         this.player = player;
+        this.chipType = chipType;
 
         switch(chipType) {
             case FIFTY:
@@ -56,5 +58,9 @@ public class Chip extends ImageView {
     public void moveChip() {
         player.removeChip(chip);
         player.getChipBox().addChip(chip);
+    }
+
+    public ChipType getChipType() {
+        return chipType;
     }
 }

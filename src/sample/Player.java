@@ -68,6 +68,8 @@ public class Player extends VBox {
         int x = 0;
         int y = 50;
 
+        looseChips.getChildren().remove(0, looseChips.getChildren().size());
+
         for (Chip chip : this.chips) {
 
             chip.relocate(x,y);
@@ -122,6 +124,22 @@ public class Player extends VBox {
             return false;
         }
         return true;
+    }
+
+    public void reset() {
+        cards = new ArrayList<Card>();
+        cardHBox.getChildren().remove(0, cardHBox.getChildren().size());
+        paintCards();
+    }
+
+    public void doubleChips() {
+        for (Chip chip : getChipBox().getBetChips())
+            addChip(new Chip(chip.getChipType(), this));
+        for (Chip chip : getChipBox().getBetChips())
+            addChip(new Chip(chip.getChipType(), this));
+
+        getChipBox().makeEmpty();
+        paintChips();
     }
 
     public void addChip(Chip chip) {

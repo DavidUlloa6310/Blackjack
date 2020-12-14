@@ -32,6 +32,7 @@ public class GameScene extends VBox {
 
     private Button pass;
     private Button hit;
+    private Button reset;
 
     public GameScene() {
 
@@ -63,6 +64,12 @@ public class GameScene extends VBox {
         hit.setStyle("-fx-background-color: #ff0000;");
         hit.setTextFill(Color.WHITE);
         hit.setPrefSize(300, 100);
+
+        reset = new Button("Next Round");
+        reset.setFont(Font.font("Bauhaus 93", 50));
+        reset.setStyle("-fx-background-color: #ff0000;");
+        reset.setTextFill(Color.WHITE);
+        reset.setPrefSize(300, 100);
 
         buttonRow.getChildren().add(pass);
         buttonRow.setAlignment(Pos.CENTER);
@@ -96,6 +103,17 @@ public class GameScene extends VBox {
             } else {
                 player.setHasPassed(true);
                 startBotPlay();
+                startDealerPlay();
+                if (player.getCardValue() < dealer.getCardValue() && dealer.getCardValue() <= 21) {
+                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount());
+                } else {
+                    JOptionPane.showMessageDialog(null, "You have won with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have won $" + player.getChipBox().getTotalChipAmount());
+                }
+                checkBets();
+
+                buttonRow.getChildren().remove(pass);
+                buttonRow.getChildren().remove(hit);
+                buttonRow.getChildren().add(reset);
             }
         });
 
@@ -103,10 +121,22 @@ public class GameScene extends VBox {
             if (!player.isHasLost()) {
                 deck.giveRandomCard(player);
                 if (player.isHasLost()) {
-                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue());
+                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount());
                     startBotPlay();
+                    startDealerPlay();
+                    checkBets();
                 }
             }
+        });
+
+        reset.setOnAction(e -> {
+            for (Player player : players) {
+                player.reset();
+            }
+
+            dealer.reset();
+            buttonRow.getChildren().remove(0);
+            buttonRow.getChildren().add(pass);
         });
 
         setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -131,6 +161,35 @@ public class GameScene extends VBox {
                     bot.getChipBox().makeEmpty();
                     bot.setHasLost(true);
                 }
+            }
+        }
+    }
+
+    public void startDealerPlay() {
+        dealer.getCards().get(1).flipUp();
+        while (dealer.getCardValue() < 17) {
+            dealer.addCard(deck.getRandomCard());
+        }
+        dealer.paintCards();
+    }
+
+    public void checkBets() {
+
+        for (Player player : players) {
+            if ((dealer.isHasLost() || player.getCardValue() > dealer.getCardValue()) && !player.isHasLost()) {
+                player.doubleChips();
+            } else {
+                player.getChipBox().makeEmpty();
+            }
+        }
+
+        for (Player player : players) {
+            if (!player.isHasLost() && player.getCardValue() > dealer.getCardValue()) {
+
+                player.getChipBox().makeEmpty();
+                player.paintChips();
+            } else {
+                player.getChipBox().makeEmpty();
             }
         }
     }

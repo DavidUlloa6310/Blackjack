@@ -17,6 +17,7 @@ public class ChipBox extends StackPane {
     private Text chipAmountText = new Text("");
 
     public int getTotalChipAmount() { return totalChipAmount; }
+    public ArrayList<Chip> getBetChips() { return betChips; }
 
     public ChipBox() {
 

@@ -129,6 +129,7 @@ public class Player extends VBox {
     public void reset() {
         cards = new ArrayList<Card>();
         cardHBox.getChildren().remove(0, cardHBox.getChildren().size());
+        hasLost = false;
         paintCards();
     }
 

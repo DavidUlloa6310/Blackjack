@@ -106,7 +106,7 @@ public class GameScene extends VBox {
                 startBotPlay();
                 startDealerPlay();
                 if (player.getCardValue() <= dealer.getCardValue() && dealer.getCardValue() <= 21) {
-                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount());
+                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount()+ "\nYour highest streak was " + player.getHighestChipValue());
                 } else {
                     JOptionPane.showMessageDialog(null, "You have won with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have won $" + player.getChipBox().getTotalChipAmount());
                 }
@@ -122,7 +122,7 @@ public class GameScene extends VBox {
             if (!player.isHasLost()) {
                 deck.giveRandomCard(player);
                 if (player.isHasLost()) {
-                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount());
+                    JOptionPane.showMessageDialog(null, "You have lost with score of " + player.getCardValue() + ", while the dealer had a score of " + dealer.getCardValue() + "\nYou have lost $" + player.getChipBox().getTotalChipAmount() + "\nYour highest streak was " + player.getHighestChipValue());
                     startBotPlay();
                     startDealerPlay();
                     checkBets();

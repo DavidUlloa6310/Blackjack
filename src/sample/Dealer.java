@@ -26,5 +26,8 @@ public class Dealer extends Player {
 
         Rectangle chipPile = new Rectangle(2000,100, Color.WHITE);
         getChildren().addAll(chipPile);
+
+        super.getChildren().remove(getName());
+
     }
 }

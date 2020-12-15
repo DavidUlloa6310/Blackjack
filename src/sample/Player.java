@@ -2,6 +2,9 @@ package sample;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,6 +14,8 @@ public class Player extends VBox {
     boolean isHuman = false;
 
     private int totalChipValue;
+    private int highestChipValue = 0;
+
     private boolean hasPassed = false;
     private boolean hasLost = false;
 
@@ -24,9 +29,12 @@ public class Player extends VBox {
 
     private Pane looseChips = new Pane();
 
+    private Text name = new Text("You");
+
     Random random = new Random();
 
     public Player() {
+        setAlignment(Pos.CENTER);
         firstRow.setAlignment(Pos.CENTER);
         firstRow.setSpacing(10);
 
@@ -42,6 +50,10 @@ public class Player extends VBox {
 
         firstRow.getChildren().addAll(cardHBox, chipBox, looseChips);
         getChildren().add(firstRow);
+
+        name.setFont(Font.font("Bauhaus 93", 50));
+        name.setFill(Color.WHITE);
+        getChildren().add(name);
     }
 
     public void alignPlayer(Pos align) {
@@ -142,6 +154,8 @@ public class Player extends VBox {
 
     public void addChip(Chip chip) {
         chips.add(chip);
+        if (getTotalChipValue() > highestChipValue)
+            highestChipValue = getTotalChipValue();
     }
 
     public void removeChip(Chip chip) {
@@ -198,5 +212,17 @@ public class Player extends VBox {
 
     public Random getRandom() {
         return random;
+    }
+
+    public void setName(String name) {
+        this.name.setText(name);
+    }
+
+    public Text getName() {
+        return name;
+    }
+
+    public int getHighestChipValue() {
+        return highestChipValue;
     }
 }

@@ -141,6 +141,7 @@ public class GameScene extends VBox {
             dealer.reset();
             buttonRow.getChildren().remove(0);
             buttonRow.getChildren().add(pass);
+            pass.setText("Get Cards");
             deck.generateDeck();
         });
 

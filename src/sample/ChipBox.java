@@ -21,7 +21,10 @@ public class ChipBox extends StackPane {
 
     public ChipBox() {
 
-        chipAmountText.setFont(Font.font("Bauhaus 93", 50));
+        boxImageView.setFitHeight(100);
+        boxImageView.setFitWidth(75);
+
+        chipAmountText.setFont(Font.font("Bauhaus 93", 25));
         chipAmountText.setFill(Color.GOLD);
 
         getChildren().addAll(chipAmountText, boxImageView);

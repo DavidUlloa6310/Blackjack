@@ -51,7 +51,7 @@ public class Player extends VBox {
         firstRow.getChildren().addAll(cardHBox, chipBox, looseChips);
         getChildren().add(firstRow);
 
-        name.setFont(Font.font("Bauhaus 93", 50));
+        name.setFont(Font.font("Bauhaus 93", 25));
         name.setFill(Color.WHITE);
         getChildren().add(name);
     }

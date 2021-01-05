@@ -20,6 +20,10 @@ public class Deck extends StackPane {
     private ImageView deckImageView = new ImageView("images/cards/deck_1.png");
 
     public Deck(Player humanPlayer) {
+
+        deckImageView.setFitHeight(100);
+        deckImageView.setFitWidth(75);
+
         Text text = new Text("Deck");
         text.setFont(Font.font("Bauhaus 93", 50));
         text.setFill(Color.WHITE);

@@ -17,14 +17,16 @@ public class Dealer extends Player {
         super.getFirstRow().setSpacing(20);
 
         deckHBox.getChildren().add(deck);
-        deckHBox.setAlignment(Pos.CENTER_LEFT);
+        deckHBox.setAlignment(Pos.CENTER_RIGHT);
+//        super.getCardHBox().setAlignment(Pos.CENTER_RIGHT);
+        super.getFirstRow().setAlignment(Pos.CENTER);
 
         deckHBox.setPrefWidth(600);
 
         super.getFirstRow().getChildren().add(deckHBox);
         super.getFirstRow().getChildren().remove(1);
 
-        Rectangle chipPile = new Rectangle(2000,100, Color.WHITE);
+        Rectangle chipPile = new Rectangle(1200,100, Color.WHITE);
         getChildren().addAll(chipPile);
 
         super.getChildren().remove(getName());

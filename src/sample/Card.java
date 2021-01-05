@@ -13,6 +13,9 @@ public class Card extends ImageView {
         setImage(new Image(imagePath));
         this.value = value;
 
+        setFitHeight(100);
+        setFitWidth(75);
+
         isAce = value == 11;
     }
 

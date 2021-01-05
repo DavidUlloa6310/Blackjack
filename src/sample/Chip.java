@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 public class Chip extends ImageView {
     private int value;
     private ChipType chipType;
-    private ImageView chipImageView;
     private Chip chip = this;
     private Player player;
 
@@ -39,6 +38,9 @@ public class Chip extends ImageView {
                 setImage(new Image(("images/chips/chip_black_top.png")));
                 break;
         }
+
+        setFitWidth(50);
+        setFitHeight(50);
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
